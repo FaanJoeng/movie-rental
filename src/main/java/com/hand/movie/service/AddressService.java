@@ -11,7 +11,8 @@ import java.util.List;
 public interface AddressService {
 
     /**
-     * 获取所有地址
+     * 获取所以地址 本项目限定为6条
+     * @return 包含Address对象的List
      */
-    public List<Address> getAll();
+    List<Address> getAll();
 }

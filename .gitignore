@@ -1,6 +1,8 @@
 .idea/
 *.iml
 
+rebel.xml
+
 target/
 
 *.class

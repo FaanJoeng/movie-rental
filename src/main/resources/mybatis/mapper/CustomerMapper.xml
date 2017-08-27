@@ -1,6 +1,118 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hand.movie.dao.CustomerDao">
+    <resultMap id="baseResultMap" type="com.hand.movie.entity.Customer">
+        <id column="customer_id" property="customerId" jdbcType="INTEGER"/>
+        <result column="first_name" property="firstName" jdbcType="VARCHAR"/>
+        <result column="last_name" property="lastName" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="address_id" property="addId" jdbcType="INTEGER"/>
+        <result column="last_update" property="lastUpdate" jdbcType="DATE" javaType="java.util.Date"/>
+    </resultMap>
 
+    <resultMap id="withAddressResultMap" type="com.hand.movie.entity.Customer">
+        <id column="customer_id" property="customerId" jdbcType="INTEGER"/>
+        <result column="first_name" property="firstName" jdbcType="VARCHAR"/>
+        <result column="last_name" property="lastName" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="address_id" property="addId" jdbcType="INTEGER"/>
+        <result column="last_update" property="lastUpdate" jdbcType="DATE" javaType="java.util.Date"/>
+        <association property="address" javaType="com.hand.movie.entity.Address">
+            <id column="address_id" property="addressId" jdbcType="INTEGER"/>
+            <result column="address" property="address" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+    <sql id="Base_Column_List">
+        customer_id, first_name, last_name, email, address_id, last_update
+    </sql>
 
+    <sql id="With_Address_Column_List">
+        c.customer_id, c.first_name, c.last_name, c.email, c.address_id, c.last_update, a.address
+    </sql>
+
+    <select id="getAllWithAddress" resultMap="withAddressResultMap">
+        SELECT
+        <include refid="With_Address_Column_List"/>
+        FROM customer c LEFT JOIN address a
+        ON c.`address_id` = a.`address_id`
+        WHERE c.active = 1
+    </select>
+
+    <select id="getAll" resultMap="baseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM customer
+    </select>
+
+    <!--更新active字段模拟删除-->
+    <update id="deleteByPrimaryKey">
+        UPDATE customer
+        SET active = 0
+        WHERE customer_id = #{customerId, jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.hand.movie.entity.Customer">
+        UPDATE customer
+        <set>
+            <if test="firstName != null">
+                first_name = #{firstName, jdbcType=VARCHAR},
+            </if>
+            <if test="lastName != null">
+                last_name = #{lastName, jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email, jdbcType=VARCHAR},
+            </if>
+            <if test="addId != null">
+                address_id = #{addId, jdbcType=INTEGER},
+            </if>
+        </set>
+        <where>
+            customer_id = #{customerId, jdbcType=INTEGER}
+        </where>
+    </update>
+
+    <insert id="insertSelective" parameterType="com.hand.movie.entity.Customer">
+        INSERT customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="firstName != null">
+                first_name,
+            </if>
+            <if test="lastName != null">
+                last_name,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="addId != null">
+                address_id,
+            </if>
+            <if test="storeId == null">
+                store_id,
+            </if>
+            <if test="createDate == null">
+                create_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="firstName != null">
+                #{firstName, jdbcType=VARCHAR},
+            </if>
+            <if test="lastName != null">
+                #{lastName, jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email, jdbcType=VARCHAR},
+            </if>
+            <if test="addId != null">
+                #{addId, jdbcType=INTEGER},
+            </if>
+            <if test="storeId == null">
+                1,
+            </if>
+            <if test="createDate == null">
+                now(),
+            </if>
+        </trim>
+    </insert>
 </mapper>

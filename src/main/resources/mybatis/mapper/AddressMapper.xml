@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hand.movie.dao.AddressDao">
-
-
+    <resultMap id="baseResultMap" type="com.hand.movie.entity.Address">
+        <id column="address_id" property="addressId" jdbcType="INTEGER"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getAll" resultMap="baseResultMap">
+        SELECT
+            address_id,
+            address
+        FROM address
+        WHERE address_id &lt; 7
+    </select>
 </mapper>
