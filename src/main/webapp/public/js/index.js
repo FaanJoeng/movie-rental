@@ -208,6 +208,24 @@ const movie = {
                 })
             })
 
+            //给注销按钮绑定单击事件
+            $("#signOutBtn").click(() => {
+                $.ajax({
+                    url : movie.url.session(),
+                    type : "delete",
+                    dataType : "json",
+                    success : ({meta}) => {
+                        if(meta.code == movie.returnCode.SIGNOUT_SUCCESS()){
+                            alert(meta.msg)
+                            window.location.href = "/session";
+                        } else {
+                            alert(meta.msg)
+                            window.location.reload()
+                        }
+                    }
+                })
+            })
+
             //给各个客户信息删除按钮绑定删除事件
             $(document).on("click", ".customerDeleteBtn", function () {
                 let customerId = $(this).attr("data-customer-id")
@@ -221,7 +239,6 @@ const movie = {
                         success: ({meta}) => {
                             if (meta.code == movie.returnCode.DELETE_CUSTOMER_SUCCESS()) {
                                 alert(meta.msg)
-                                c(movie.variable.currentPage)
                                 movie.customer.getCustomerWithJson(movie.variable.currentPage)
                             } else {
                                 alert(meta.msg)
@@ -466,7 +483,9 @@ const movie = {
                      * 从后台获取客户信息并填充进表单，确保信息的实时性
                      * 确保内容填充在拿回地址列表后执行
                      */
-                    movie.customer.getCustomerById(customerId)
+                    if(customerId){
+                        movie.customer.getCustomerById(customerId)
+                    }
                 }
             })
         }

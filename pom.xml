@@ -126,6 +126,7 @@
             <version>${logback.version}</version>
         </dependency>
     </dependencies>
+
     <build>
         <finalName>movie-rental</finalName>
         <plugins>

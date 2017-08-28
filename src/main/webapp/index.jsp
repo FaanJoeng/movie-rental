@@ -13,10 +13,9 @@
     <div class="col-md-9">
       <div class="row">
         <div class="col-md-offset-10">
-              <span class="glyphicon glyphicon-user" id="signOut">
-                <div><a class="btn btn-sm" id="signOutBtn">注销</a></div>
-              </span>
+          <span class="glyphicon glyphicon-user"></span>
           <span id="user"><%=request.getSession().getAttribute("user")%></span>
+          <a class="btn" id="signOutBtn">注销</a>
         </div>
       </div>
     </div>
@@ -80,14 +79,14 @@
       <div class="modal-body">
         <form class="form-horizontal" id="addCustomerForm">
           <div class="form-group">
-            <label for="addCustomerFirstNameInput" class="col-sm-2 control-label">FirstName</label>
+            <label for="addCustomerFirstNameInput" class="col-sm-2 control-label">FirstName<span class="required">*</span></label>
             <div class="col-sm-10">
               <input class="form-control" name="firstName" id="addCustomerFirstNameInput">
               <span class="help-block"></span>
             </div>
           </div>
           <div class="form-group">
-            <label for="addCustomerLastNameInput" class="col-sm-2 control-label">LastName</label>
+            <label for="addCustomerLastNameInput" class="col-sm-2 control-label">LastName<span class="required">*</span></label>
             <div class="col-sm-10">
               <input class="form-control" name="lastName" id="addCustomerLastNameInput">
               <span class="help-block"></span>
@@ -101,7 +100,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">Address</label>
+            <label class="col-sm-2 control-label">Address<span class="required">*</span></label>
             <div class="col-sm-10">
               <select class="form-control" name="addId">
 

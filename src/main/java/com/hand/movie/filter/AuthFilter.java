@@ -19,22 +19,17 @@ public class AuthFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
-        if (req.getRequestURI().contains("/")) {
-            filterChain.doFilter(req, resp);
-        }
 
-
-        //如果请求的是登录页或者静态资源则不拦截
-        if (req.getServletPath().contains("/session") && req.getMethod().toLowerCase().equals("get")) {
-            filterChain.doFilter(req, resp);
-        }
-
-        //如果Session存在user属性则放行， 不存在则重定向到登录页
-        if (req.getSession().getAttribute("user") == null) {
+        if(req.getRequestURI().contains("/public") || req.getRequestURI().contains("/session")){
+            filterChain.doFilter(servletRequest, servletResponse);
+        } else if (req.getSession().getAttribute("user") == null){
             resp.sendRedirect("/session");
         } else {
-            filterChain.doFilter(req, resp);
+            filterChain.doFilter(servletRequest, servletResponse);
         }
+
+
+
     }
 
     @Override

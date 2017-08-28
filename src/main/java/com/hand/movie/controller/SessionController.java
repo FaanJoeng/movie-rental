@@ -64,7 +64,7 @@ public class SessionController {
     @ResponseBody
     public ResponseDto signOut(HttpSession session) {
         session.removeAttribute("user");
-        return ResponseUtils.success(new Meta(ReturnCode.SIGNOUT_SUCCESS.getValue()));
+        return ResponseUtils.success(new Meta(ReturnCode.SIGNOUT_SUCCESS.getValue(), "注销成功"));
     }
 
 }

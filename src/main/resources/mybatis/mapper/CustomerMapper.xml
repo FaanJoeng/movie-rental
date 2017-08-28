@@ -35,7 +35,7 @@
         FROM customer c LEFT JOIN address a
         ON c.`address_id` = a.`address_id`
         WHERE
-        first_name = #{name}
+        first_name = #{name} AND active = 1
         LIMIT 1
     </select>
 
@@ -46,7 +46,7 @@
         FROM customer c LEFT JOIN address a
         ON c.`address_id` = a.`address_id`
         WHERE
-        customer_id = #{customerId}
+        customer_id = #{customerId} AND active = 1
     </select>
 
     <!--更新active字段模拟单条删除-->
@@ -64,6 +64,7 @@
         <foreach collection="list" item="id" open="(" close=")" separator=",">
             #{id, jdbcType=INTEGER}
         </foreach>
+        AND active = 1
     </update>
 
     <!--根据主键更新顾客信息-->
@@ -84,7 +85,7 @@
             </if>
         </set>
         <where>
-            customer_id = #{customerId, jdbcType=INTEGER}
+            customer_id = #{customerId, jdbcType=INTEGER} AND active = 1
         </where>
     </update>
 

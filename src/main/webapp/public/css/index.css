@@ -4,6 +4,10 @@
     color: #333;
 }
 
+.required {
+    color: #f00;
+}
+
 /*首页相关*/
 #indexHeader {
     height: 42px;
@@ -12,28 +16,7 @@
     font-size: 20px;
 }
 
-#signOut {
-    position: relative;
-    display: inline-block;
-    height: 42px;
-    line-height: 42px;
-}
 
-#signOut div {
-    position: absolute;
-    top: 42px;
-
-    display: none;
-    border-radius: 5%;
-
-    font-size: 24px;
-
-    background-color: #2aabd2;
-}
-
-#signOut:hover div {
-    display: block;
-}
 
 #user {
     color: #fff;
