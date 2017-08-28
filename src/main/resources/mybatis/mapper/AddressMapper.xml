@@ -5,11 +5,12 @@
         <id column="address_id" property="addressId" jdbcType="INTEGER"/>
         <result column="address" property="address" jdbcType="VARCHAR"/>
     </resultMap>
+    <!--查询不重复的地址列表-->
     <select id="getAll" resultMap="baseResultMap">
         SELECT
+        DISTINCT
             address_id,
             address
         FROM address
-        WHERE address_id &lt; 7
     </select>
 </mapper>

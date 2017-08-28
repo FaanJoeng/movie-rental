@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hand.movie.dao.CustomerDao">
-    <resultMap id="baseResultMap" type="com.hand.movie.entity.Customer">
-        <id column="customer_id" property="customerId" jdbcType="INTEGER"/>
-        <result column="first_name" property="firstName" jdbcType="VARCHAR"/>
-        <result column="last_name" property="lastName" jdbcType="VARCHAR"/>
-        <result column="email" property="email" jdbcType="VARCHAR"/>
-        <result column="address_id" property="addId" jdbcType="INTEGER"/>
-        <result column="last_update" property="lastUpdate" jdbcType="DATE" javaType="java.util.Date"/>
-    </resultMap>
-
     <resultMap id="withAddressResultMap" type="com.hand.movie.entity.Customer">
         <id column="customer_id" property="customerId" jdbcType="INTEGER"/>
         <result column="first_name" property="firstName" jdbcType="VARCHAR"/>
@@ -22,14 +13,13 @@
             <result column="address" property="address" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
-    <sql id="Base_Column_List">
-        customer_id, first_name, last_name, email, address_id, last_update
-    </sql>
 
+    <!--携带地址信息的客户信息列-->
     <sql id="With_Address_Column_List">
         c.customer_id, c.first_name, c.last_name, c.email, c.address_id, c.last_update, a.address
     </sql>
 
+    <!--查询所有客户的信息，返回信息列表-->
     <select id="getAllWithAddress" resultMap="withAddressResultMap">
         SELECT
         <include refid="With_Address_Column_List"/>
@@ -38,19 +28,45 @@
         WHERE c.active = 1
     </select>
 
-    <select id="getAll" resultMap="baseResultMap">
+    <!--添加LIMIT 1 防止重复-->
+    <select id="getCustomerByName" resultMap="withAddressResultMap">
         SELECT
-        <include refid="Base_Column_List"/>
-        FROM customer
+        <include refid="With_Address_Column_List"/>
+        FROM customer c LEFT JOIN address a
+        ON c.`address_id` = a.`address_id`
+        WHERE
+        first_name = #{name}
+        LIMIT 1
     </select>
 
-    <!--更新active字段模拟删除-->
+    <!--根据ID查询顾客信息-->
+    <select id="getCustomerById" resultMap="withAddressResultMap">
+        SELECT
+        <include refid="With_Address_Column_List"/>
+        FROM customer c LEFT JOIN address a
+        ON c.`address_id` = a.`address_id`
+        WHERE
+        customer_id = #{customerId}
+    </select>
+
+    <!--更新active字段模拟单条删除-->
     <update id="deleteByPrimaryKey">
         UPDATE customer
         SET active = 0
         WHERE customer_id = #{customerId, jdbcType=INTEGER}
     </update>
 
+    <!--执行批量删除-->
+    <update id="deleteBatch" parameterType="java.lang.Integer">
+        UPDATE customer
+        SET active = 0
+        WHERE customer_id IN
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id, jdbcType=INTEGER}
+        </foreach>
+    </update>
+
+    <!--根据主键更新顾客信息-->
     <update id="updateByPrimaryKeySelective" parameterType="com.hand.movie.entity.Customer">
         UPDATE customer
         <set>
@@ -72,6 +88,7 @@
         </where>
     </update>
 
+    <!--根据提供的信息有选择的添加客户信息-->
     <insert id="insertSelective" parameterType="com.hand.movie.entity.Customer">
         INSERT customer
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -87,6 +104,7 @@
             <if test="addId != null">
                 address_id,
             </if>
+            /*默认前台不提供storeId的值*/
             <if test="storeId == null">
                 store_id,
             </if>
@@ -107,6 +125,7 @@
             <if test="addId != null">
                 #{addId, jdbcType=INTEGER},
             </if>
+            /*前台不提供storeId的值，此处默认为1*/
             <if test="storeId == null">
                 1,
             </if>

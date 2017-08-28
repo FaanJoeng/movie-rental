@@ -18,8 +18,7 @@ public class AddressServiceImpl implements AddressService {
     AddressDao addressDao;
 
     /**
-     * 获取所以地址 本项目限定为6条
-     *
+     * 获取所以地址
      * @return 包含Address对象的List
      */
     @Override

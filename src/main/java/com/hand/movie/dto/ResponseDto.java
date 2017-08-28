@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 通用信息传递对象
  * @author Fan Yang
  * @since 2017/8/26
  */
@@ -12,7 +13,7 @@ public class ResponseDto {
     private Meta meta;
 
     //携带数据
-    private Map<String, Object> data = new HashMap<String, Object>();
+    private Map<String, Object> data = new HashMap<>();
 
 
     public ResponseDto() {
@@ -21,7 +22,6 @@ public class ResponseDto {
 
     /**
      * 携带数据返回
-     *
      * @param meta 元数据
      * @param data 携带的数据
      */
@@ -32,7 +32,6 @@ public class ResponseDto {
 
     /**
      * 不携带数据返回
-     *
      * @param meta 元数据
      */
     public ResponseDto(Meta meta) {
@@ -41,7 +40,6 @@ public class ResponseDto {
 
     /**
      * 为 ResponseDto 添加返回数据
-     *
      * @param key   数据键
      * @param value 数据值
      */
@@ -67,30 +65,3 @@ public class ResponseDto {
     }
 }
 
-class Meta {
-    //返回码
-    private Integer code;
-    //说明信息
-    private String msg;
-
-    public Meta(Integer code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-}

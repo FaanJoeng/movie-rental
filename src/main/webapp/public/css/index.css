@@ -1,0 +1,77 @@
+.logo {
+    height: 42px;
+    line-height: 42px;
+    color: #333;
+}
+
+/*首页相关*/
+#indexHeader {
+    height: 42px;
+    background-color: #2aabd2;
+
+    font-size: 20px;
+}
+
+#signOut {
+    position: relative;
+    display: inline-block;
+    height: 42px;
+    line-height: 42px;
+}
+
+#signOut div {
+    position: absolute;
+    top: 42px;
+
+    display: none;
+    border-radius: 5%;
+
+    font-size: 24px;
+
+    background-color: #2aabd2;
+}
+
+#signOut:hover div {
+    display: block;
+}
+
+#user {
+    color: #fff;
+}
+
+#panel {
+    height: 100%;
+    border-right: #aaa solid 1px;
+    color: #aaa !important;
+}
+
+#panel > div {
+    height: 32px;
+    padding-left: 20px;
+
+    line-height: 32px;
+}
+
+#panel > div > span {
+    float: right;
+    top: 10px;
+    right: 10px;
+}
+
+/*登录页相关*/
+#signIn {
+    height: 100%;
+    background: url("/public/imgs/bg.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+#signInPanel {
+    margin-top: 5%;
+    border: #aaa solid 1px;
+    background-color: #fff;
+}
+
+#signInPanel form {
+    padding: 5% 20%;
+    border-top: #aaa solid 1px;
+}
