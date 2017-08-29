@@ -7,7 +7,7 @@
         <result column="last_name" property="lastName" jdbcType="VARCHAR"/>
         <result column="email" property="email" jdbcType="VARCHAR"/>
         <result column="address_id" property="addId" jdbcType="INTEGER"/>
-        <result column="last_update" property="lastUpdate" jdbcType="DATE" javaType="java.util.Date"/>
+        <result column="last_update" property="lastUpdate" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
         <association property="address" javaType="com.hand.movie.entity.Address">
             <id column="address_id" property="addressId" jdbcType="INTEGER"/>
             <result column="address" property="address" jdbcType="VARCHAR"/>

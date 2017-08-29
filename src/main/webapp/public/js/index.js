@@ -64,9 +64,9 @@ const movie = {
 
     //URL存放
     url: {
-        customers: () => "/customers",
-        session: () => "/session",
-        address: () => "/address"
+        customers: () => "customers",
+        session: () => "session",
+        address: () => "address"
     },
 
     /**
@@ -217,7 +217,7 @@ const movie = {
                     success : ({meta}) => {
                         if(meta.code == movie.returnCode.SIGNOUT_SUCCESS()){
                             alert(meta.msg)
-                            window.location.href = "/session";
+                            window.location.href = "session";
                         } else {
                             alert(meta.msg)
                             window.location.reload()
@@ -225,6 +225,9 @@ const movie = {
                     }
                 })
             })
+
+            //绑定Customer、Film面板切换事件
+            movie.customer.switchPanel()
 
             //给各个客户信息删除按钮绑定删除事件
             $(document).on("click", ".customerDeleteBtn", function () {
@@ -248,6 +251,7 @@ const movie = {
                     })
                 }
             })
+
 
             //以下为多选删除相关事件
             $(document).on("click", ".check_item", () => {
@@ -289,6 +293,35 @@ const movie = {
                     })
                 }
             })
+        },
+
+        //切换客户管理及电影设置
+        switchPanel : () => {
+            let customerBtn = $("#mg_customer")
+            let filmBtn = $("#set_film")
+
+            let customerPanel =$("#index_customer")
+            let filmPanel = $("#index_film")
+
+            customerBtn.click(() => {
+                if(customerPanel.display = "none"){
+                    customerPanel.css("display", "block")
+                }
+                if(filmPanel.display = "block"){
+                    filmPanel.css("display", "none")
+                }
+            })
+
+            filmBtn.click(() => {
+                if(filmPanel.display = "none"){
+                    filmPanel.css("display", "block")
+                }
+
+                if(customerPanel.display = "block"){
+                    customerPanel.css("display", "none")
+                }
+            })
+
         },
 
         /**
@@ -503,7 +536,10 @@ const movie = {
                     dataType: "json",
                     success: ({meta}) => {
                         if (meta.code == movie.returnCode.SIGNIN_SUCCESS()) {
-                            window.location.href = "/"
+                            //获取项目上下文路径
+                            let pathName = window.location.pathname
+                            let rootPath = pathName.substring(0, pathName.substr(1).indexOf("/") + 1)
+                            window.location.href = rootPath
                         } else {
                             alert(meta.msg)
                             window.location.reload()

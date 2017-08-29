@@ -1,3 +1,4 @@
+## 电影租赁管理系统
 #### 说明
  1. 数据库配置文件位置 `src/main/resources/jdbc.properties`
  2. 新插入数据`store_id`默认为`1`，删除通过置`customer`表`active`字段为`0`实现

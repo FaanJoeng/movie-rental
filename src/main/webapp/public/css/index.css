@@ -1,7 +1,7 @@
 .logo {
     height: 42px;
     line-height: 42px;
-    color: #333;
+    color: #666;
 }
 
 .required {
@@ -16,7 +16,25 @@
     font-size: 20px;
 }
 
+.index_title {
+    margin: 0;
+    padding: 10px 20px;
+    width: 100%;
+    border-bottom: #ccc solid 1px;
+}
 
+#index table {
+    font-size: 14px;
+
+}
+
+#index a {
+    cursor: pointer;
+}
+
+#index table th {
+    border-bottom: 2px solid #2aabd2;
+}
 
 #user {
     color: #fff;
@@ -44,7 +62,7 @@
 /*登录页相关*/
 #signIn {
     height: 100%;
-    background: url("/public/imgs/bg.png") no-repeat;
+    background: url("../imgs/bg.png") no-repeat;
     background-size: 100% 100%;
 }
 

@@ -1,8 +1,8 @@
 <%@page pageEncoding="UTF-8" %>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="/public/bootstrap-3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="/public/css/index.css">
+  <link rel="stylesheet" type="text/css" href="public/bootstrap-3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="public/css/index.css">
 </head>
 <body>
 <div class="container-fluid" id="signIn">
@@ -46,8 +46,8 @@
     <div class="col-sm-3"></div>
   </div>
 </div>
-<script src="../../public/js/jquery.js"></script>
-<script src="../../public/js/index.js"></script>
+<script src="public/js/jquery.js"></script>
+<script src="public/js/index.js"></script>
 <script>
     $(() => {
         movie.session.init()

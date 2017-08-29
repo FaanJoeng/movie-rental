@@ -3,11 +3,11 @@
 <html>
 <head>
   <title>客户管理</title>
-  <link rel="stylesheet" type="text/css" href="/public/bootstrap-3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="/public/css/index.css">
+  <link rel="stylesheet" type="text/css" href="public/bootstrap-3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="public/css/index.css">
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid" id="index">
   <div class="row" id="indexHeader">
     <div class="col-md-3 logo">15249 杨凡</div>
     <div class="col-md-9">
@@ -23,20 +23,23 @@
   <div class="row">
     <div class="col-md-2" id="panel">
       <div class="row">
-        <a class="btn">Customer 管理</a><span class="glyphicon glyphicon-chevron-right"></span>
+        <a class="btn" id="mg_customer">Customer 管理</a><span class="glyphicon glyphicon-chevron-right"></span>
       </div>
       <div class="row">
-        <a class="btn">Film 设置</a><span class="glyphicon glyphicon-chevron-right"></span>
+        <a class="btn" id="set_film">Film 设置</a><span class="glyphicon glyphicon-chevron-right"></span>
       </div>
     </div>
-    <div class="col-md-10">
-      <div class="row">客户管理</div>
-      <div class="row">客户列表
-        <button type="button" class="btn btn-primary btn-sm" id="addCustomerBtn">新增</button>
-        <button class="btn btn-danger btn-sm" id="deleteAllBtn">删除</button>
+    <div class="col-md-10" id="index_customer">
+      <div class="row h3 index_title">客户管理</div>
+      <div class="row">
+        <div class="col-md-2" id="viceTitle">客户列表</div>
+        <div class="col-md-3 col-md-offset-10">
+          <button type="button" class="btn btn-primary btn-sm" id="addCustomerBtn">新增</button>
+          <button class="btn btn-danger btn-sm" id="deleteAllBtn">删除</button>
+        </div>
       </div>
       <div class="row">
-        <table class="table">
+        <table class="table table-bordered">
           <thead>
           <th style="width: 30px">
             <input type="checkbox" id="check_all">
@@ -54,9 +57,9 @@
         </table>
       </div>
       <div class="row">
-        <div class="col-md-4" id="pagination_info">
+        <div class="col-md-5" id="pagination_info">
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7">
           <nav aria-label="Page navigation">
             <ul class="pagination" id="pagination">
             </ul>
@@ -64,8 +67,15 @@
         </div>
       </div>
     </div>
+    <%--电影设置--%>
+    <div id="index_film" class="col-md-10" style="display: none">
+      <div class="row h3 index_title" >电影管理</div>
+      <div class="h1">我是一片空白的电影管理</div>
+    </div>
   </div>
 </div>
+
+
 
 <%--新增客户模态框--%>
 <div class="modal fade" id="addCustomerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -186,13 +196,13 @@
     <td><?= item.address.address?></td>
     <td><?= item.lastUpdate ?></td>
     <td>
-      <button class="btn customerEditBtn" data-customer-id="<?= item.customerId ?>">
+      <a class="customerEditBtn" data-customer-id="<?= item.customerId ?>">
         编辑
-      </button>
+      </a>
       |
-      <button class="btn customerDeleteBtn" data-customer-id="<?= item.customerId ?>">
+      <a class="customerDeleteBtn" data-customer-id="<?= item.customerId ?>">
         删除
-      </button>
+      </a>
     </td>
   </tr>
   <?}?>

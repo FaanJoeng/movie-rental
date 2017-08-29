@@ -10,6 +10,10 @@
     <typeAliases>
         <package name="com.hand.movie.dao"/>
     </typeAliases>
+    
+    <!--<typeHandlers>
+        <typeHandler handler="com.hand.movie.dao.TimeStampHandler" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+    </typeHandlers>-->
 
     <plugins>
         <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
