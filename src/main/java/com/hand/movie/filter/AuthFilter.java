@@ -21,16 +21,13 @@ public class AuthFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
         //如果路径包含/public(静态资源文件夹)或者/session(登录注销) 不予拦截
-        if(req.getRequestURI().contains("/public") || req.getRequestURI().contains("/session")){
-            filterChain.doFilter(servletRequest, servletResponse);
+        if(req.getRequestURI().contains("public") || req.getRequestURI().contains("session")){
+            filterChain.doFilter(req, resp);
         } else if (req.getSession().getAttribute("user") == null){
             resp.sendRedirect("session");
         } else {
-            filterChain.doFilter(servletRequest, servletResponse);
+            filterChain.doFilter(req, resp);
         }
-
-
-
     }
 
     @Override

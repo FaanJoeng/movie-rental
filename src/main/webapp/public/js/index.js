@@ -444,6 +444,18 @@ const movie = {
                         //清除全选删除的选定状态
                         $("#check_all").prop("checked", false)
 
+                        //这个for循环用来格式化日期输出
+                        for(let i = 0; i < data.page.size; i++){
+                            var date = new Date()
+                            date.setTime(data.page.list[i].lastUpdate)
+                            data.page.list[i].lastUpdate = date.getFullYear() + "-" +
+                                                           (date.getMonth() + 1) + "-" +
+                                                           date.getDate() + " " +
+                                                           date.getHours() + ":" +
+                                                           date.getMinutes() + ":" +
+                                                           date.getSeconds()
+                        }
+
                         /**
                          * 如果成功拿到数据，通过template()函数，将数据分别填充进客户信息
                          * 表格模板、分页信息模板、分页链接模板，并插入相关节点下

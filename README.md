@@ -1,7 +1,13 @@
 ## 电影租赁管理系统
-#### 说明
+#### 配置说明
  1. 数据库配置文件位置 `src/main/resources/jdbc.properties`
  2. 新插入数据`store_id`默认为`1`，删除通过置`customer`表`active`字段为`0`实现
+
+#### 运行说明
+在本项目根目录下运行 
+1. `mvn clean`
+2. `mvn compile`
+3. `mvn jetty:run`
 
 #### API 
 * 主页 
